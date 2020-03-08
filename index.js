@@ -2,10 +2,9 @@ import { combineReducers } from "redux";
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { connect } from "react-redux";
-import { storeSlices } from "./slices";
 import { createSlice } from "@reduxjs/toolkit";
 
-const storeSlices = {
+let storeSlices = {
     // currentTime: createSlice({
     //     name: StoreNames.currentTime,
     //     initialState: {
@@ -32,6 +31,7 @@ const getConnected = (slicerName, component) => {
     const stateToProps = (state) => {
         return state[storeSlices[slicerName].name];
     };
+    console.log('getConnected', storeSlices);
     return connect(stateToProps, {...storeSlices[slicerName].actions})(component);
 }
 
@@ -44,11 +44,7 @@ const getStore = (slicerArr) => {
     });
 }
 
-export default {
-    GetConnected : getConnected,
-    GetStore : getStore,
-    Provider,
-    ConnectedComponent : Provider,
-    createSlice,
-    CreateStore: createSlice
-}
+export const GetConnected = getConnected;
+export const GetStore = getStore;
+export const ConnectedComponent = Provider;
+export const CreateStore = createSlice;
